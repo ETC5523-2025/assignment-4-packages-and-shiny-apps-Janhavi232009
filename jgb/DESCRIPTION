@@ -1,0 +1,35 @@
+Package: jgb
+Type: Package
+Title: Air Quality Explorer
+Version: 0.1.0
+Authors@R: c(
+    person(
+      "Janhavi", "Bayanwar",
+      email = "jbay0007@student.monash.edu",
+      role = c("aut", "cre")
+    )
+  )
+Description: An R package containing processed sensor data and a Shiny app 
+    to explore air quality with bubble map and line graph visualisations 
+    for the San Francisco Bay Area (USA). Includes example analyses and 
+    a pkgdown website.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Imports: 
+    dplyr,
+    leaflet,
+    plotly,
+    readr,
+    scales,
+    shiny,
+    shinythemes,
+    tidyr,
+    ggplot2
+RoxygenNote: 7.3.3
+Depends: 
+    R (>= 3.5)
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr

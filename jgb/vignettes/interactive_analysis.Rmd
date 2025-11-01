@@ -1,0 +1,20 @@
+---
+title: "interactive_analysis"
+author: "Janhavi Bayanwar"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{interactive_analysis}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(jgb)
+```

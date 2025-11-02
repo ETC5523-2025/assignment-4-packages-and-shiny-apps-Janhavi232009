@@ -8,7 +8,7 @@
 
 ## Overview
 
-MyPackage provides a cleaned dataset from ETC5523 Assignments 3 based in the [article](https://www.theguardian.com/technology/2022/nov/20/amazon-warehouse-new-york-brooklyn-red-hook)and an interactive Shiny application that allows users to explore, visualize, and analyze the data dynamically. The package is designed for teaching, learning, and interactive data exploration.
+MyPackage provides a cleaned dataset from ETC5523 Assignments 3 based on the [article](https://www.theguardian.com/technology/2022/nov/20/amazon-warehouse-new-york-brooklyn-red-hook) and an interactive Shiny application that allows users to explore, visualize, and analyze the data dynamically. The package is designed for teaching, learning, and interactive data exploration.
 
 - **Dataset:** `sensor_data` — cleaned, structured, and ready for from Purple Air (kaggle).
 - **Shiny app:** launch using `launch_app()` to explore the data interactively.
@@ -24,7 +24,7 @@ You can install the development version directly from GitHub:
 install.packages("remotes")
 
 # install package
-remotes::install_github("assignment-4-packages-and-shiny-apps-Janhavi232009/jgb")
+remotes::install_github("ETC5523-2025/assignment-4-packages-and-shiny-apps-Janhavi232009/jgb")
 
 # Load the package
 library(jgb)
@@ -57,4 +57,4 @@ This opens a browser window with the interactive air-quality dashboard, where yo
 ## Documentation and Website
 
 Full documentation, including function references, dataset details, and vignettes, is available on the pkgdown site:
-https://Janhavi232009.github.io/jgb
+https://etc5523-2025.github.io/assignment-4-packages-and-shiny-apps-Janhavi232009/index.html

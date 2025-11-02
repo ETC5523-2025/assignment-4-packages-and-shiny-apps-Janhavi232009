@@ -56,7 +56,7 @@ if ("Coordinates_by_time.Time.Value" %in% names(sensor_data)) {
 # ---- UI ----
 ui <- fluidPage(
   theme = shinytheme("flatly"),
-  titlePanel("🌿 Air Quality Explorer: SF Bay Area Sensors"),
+  titlePanel("Air Quality Explorer: SF Bay Area"),
 
   sidebarLayout(
     sidebarPanel(

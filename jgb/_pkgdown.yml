@@ -5,7 +5,7 @@
 # Purpose: Professional documentation and website configuration
 # ============================================================
 
-url: https://Janhavi232009.github.io/jgb
+url: https://etc5523-2025.github.io/assignment-4-packages-and-shiny-apps-Janhavi232009/index.html
 title: "jgb: Interactive Exploration of Air Quality Sensor Data"
 lang: en
 
@@ -37,7 +37,7 @@ navbar:
     github:
       icon: fa-github
       aria-label: "Visit the GitHub repository"
-      href: https://github.com/Janhavi232009/jgb
+      href: https://github.com/ETC5523-2025/assignment-4-packages-and-shiny-apps-Janhavi232009
 
 # ------------------------------
 # Reference section (functions)
@@ -74,4 +74,4 @@ footer:
     left: [text]
   components:
     text: |
-      © 2025 Janhavi — Built with ❤️ using [pkgdown](https://pkgdown.r-lib.org) and [Shiny](https://shiny.posit.co).
+      © 2025 Janhavi — Built using [pkgdown](https://pkgdown.r-lib.org) and [Shiny](https://shiny.posit.co).

@@ -1,4 +1,77 @@
-url: ~
+# ============================================================
+# pkgdown configuration for the "jgb" package
+# Author: Janhavi
+# Course: ETC5523 - Communicating with Data
+# Purpose: Professional documentation and website configuration
+# ============================================================
+
+url: https://Janhavi232009.github.io/jgb
+title: "jgb: Interactive Exploration of Air Quality Sensor Data"
+lang: en
+
 template:
   bootstrap: 5
+  bootswatch: flatly
+  bslib:
+    base_font: {google: "Inter"}
+    heading_font: {google: "Poppins"}
+    code_font: {google: "Fira Code"}
 
+navbar:
+  structure:
+    left: [home, reference, articles]
+    right: [github]
+  components:
+    home:
+      icon: fa-home
+      text: "Home"
+      href: index.html
+    reference:
+      icon: fa-code
+      text: "Functions"
+      href: reference/index.html
+    articles:
+      icon: fa-book
+      text: "Tutorial"
+      href: articles/index.html
+    github:
+      icon: fa-github
+      aria-label: "Visit the GitHub repository"
+      href: https://github.com/Janhavi232009/jgb
+
+# ------------------------------
+# Reference section (functions)
+# ------------------------------
+reference:
+  - title: "Function Reference"
+    desc: >
+      Documentation for all exported functions and datasets
+      included in the `jgb` package.
+    contents:
+      - launch_app
+      - sensor_data
+
+# ------------------------------
+# Articles section (vignettes)
+# ------------------------------
+articles:
+  - title: "Tutorials & Case Studies"
+    desc: >
+      Walkthroughs and case studies demonstrating how to explore
+      air quality data interactively with `jgb`.
+    contents:
+      - interactive_analysis
+
+# ------------------------------
+# Author and footer info
+# ------------------------------
+authors:
+  Janhavi:
+    href: "https://github.com/Janhavi232009"
+
+footer:
+  structure:
+    left: [text]
+  components:
+    text: |
+      © 2025 Janhavi — Built with ❤️ using [pkgdown](https://pkgdown.r-lib.org) and [Shiny](https://shiny.posit.co).

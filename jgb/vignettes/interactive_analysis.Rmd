@@ -11,10 +11,108 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
+  warning = FALSE,
   comment = "#>"
 )
 ```
 
 ```{r setup}
 library(jgb)
+library(tidyr)
+library(dplyr)
+library(ggplot2)
 ```
+
+
+# Introduction
+
+This vignette demonstrates how to explore the air quality data stored in the `sensor_data` dataset, included in the **jgb** package.  
+The dataset comes from PurpleAir sensors across the SF Bay Area and contains measurements of air quality over time.
+
+# The Data
+
+Let's load and preview the dataset:
+
+```{r}
+sensor_data <- jgb::sensor_data
+head(sensor_data)
+```
+
+The dataset contains columns representing coordinates, time, and measured air quality values.
+
+# Data Preparation
+
+We first split the combined text field into proper variables for latitude, longitude, time, and value.
+
+```{r}
+
+if ("Coordinates_by_time.Time.Value" %in% names(sensor_data)) {
+  # Case 1: single combined column
+  sensor_clean <- sensor_data %>%
+  tidyr::separate(Coordinates_by_time.Time.Value,
+                  into = c("Coordinates", "Time", "Value"),
+                  sep = ",") %>%
+  tidyr::separate(Coordinates, into = c("lat", "lon"), sep = " ") %>%
+  mutate(
+    lat = as.numeric(lat),
+    lon = as.numeric(lon),
+    Value = as.numeric(Value),
+    time_num = as.numeric(gsub("T", "", Time))
+  )
+
+} else if (all(c("Coordinates_by_time", "Time", "Value") %in% names(sensor_data))) {
+  # Case 2: already separate columns
+  sensor_clean <- sensor_data %>%
+      tidyr::separate(Coordinates_by_time, into = c("lat", "lon"), sep = " ") %>%
+    dplyr::mutate(
+    lat = as.numeric(lat),
+    lon = as.numeric(lon),
+    Value = as.numeric(Value),
+    time_num = as.numeric(gsub("T", "", Time))
+  )
+ 
+    
+} else {
+  stop("sensor_data has unexpected column structure. Check the dataset.")
+}
+head(sensor_clean)
+```
+
+# Visualizing Air Quality Over Time
+
+The following plot shows the **average air quality value** across time points.
+
+```{r fig.width=7, fig.height=4}
+avg_trend <- sensor_clean %>%
+  group_by(time_num) %>%
+  summarise(mean_val = mean(Value, na.rm = TRUE))
+
+ggplot(avg_trend, aes(x = time_num, y = mean_val)) +
+  geom_line(color = "#0072B2", linewidth = 1.2) +
+  geom_point(color = "#0072B2") +
+  geom_hline(yintercept = 500, color = "red", linetype = "dashed") +
+  labs(
+    x = "Time (T index)",
+    y = "Average Air Quality",
+    title = "Air Quality Trend Over Time"
+  ) +
+  theme_minimal()
+```
+
+# Interactive App
+
+To explore this dataset interactively, use the Shiny app included in the package:
+
+```{r  eval = FALSE}
+jgb::launch_app()
+
+```
+
+
+This app displays:
+- A **map view** showing spatial air quality variation,  
+- A **trend view** displaying the time evolution of air quality levels.
+
+# Summary
+
+In this vignette, we explored the `sensor_data` dataset, cleaned and visualized it, and demonstrated how to access the interactive Shiny app for further exploration.

@@ -10,24 +10,47 @@ library(jgb)
 # ---- Load sensor data from package ----
 sensor_data <- jgb::sensor_data
 
-# ---- Clean the dataset: split into latitude, longitude, time, measurement ----
-sensor_data_clean <- sensor_data %>%
-  # Split "Coordinates_by_time" into latitude and longitude
-  tidyr::separate(Coordinates_by_time,
-                  into = c("latitude", "longitude"),
-                  sep = " ") %>%
-  mutate(
-    latitude = as.numeric(latitude),
-    longitude = as.numeric(longitude),
-    time_point = as.numeric(gsub("T", "", Time)),
-    measurement = as.numeric(Value),
-    quality = dplyr::case_when(
-      measurement <= 400 ~ "Good",
-      measurement <= 750 ~ "Moderate",
-      TRUE ~ "Poor"
-    )
-  ) %>%
-  dplyr::select(latitude, longitude, time_point, measurement, quality)
+if ("Coordinates_by_time.Time.Value" %in% names(sensor_data)) {
+  # Case 1: single combined column
+  sensor_data_clean <- sensor_data %>%
+    tidyr::separate(Coordinates_by_time.Time.Value,
+                    into = c("coords", "time", "measurement"),
+                    sep = ",") %>%
+    tidyr::separate(coords, into = c("latitude", "longitude"), sep = " ") %>%
+    dplyr::mutate(
+      latitude = as.numeric(latitude),
+      longitude = as.numeric(longitude),
+      time_point = as.numeric(gsub("T", "", time)),
+      measurement = as.numeric(measurement),
+      quality = dplyr::case_when(
+        measurement <= 400 ~ "Good",
+        measurement <= 750 ~ "Moderate",
+        TRUE ~ "Poor"
+      )
+    ) %>%
+    dplyr::select(latitude, longitude, time_point, measurement, quality)
+
+} else if (all(c("Coordinates_by_time", "Time", "Value") %in% names(sensor_data))) {
+  # Case 2: already separate columns
+  sensor_data_clean <- sensor_data %>%
+    dplyr::mutate(
+      latitude = as.numeric(sub(" .*", "", Coordinates_by_time)),
+      longitude = as.numeric(sub(".* ", "", Coordinates_by_time)),
+      time_point = as.numeric(gsub("T", "", Time)),
+      measurement = as.numeric(Value),
+      quality = dplyr::case_when(
+        measurement <= 400 ~ "Good",
+        measurement <= 750 ~ "Moderate",
+        TRUE ~ "Poor"
+      )
+    ) %>%
+    dplyr::select(latitude, longitude, time_point, measurement, quality)
+
+} else {
+  stop("sensor_data has unexpected column structure. Check the dataset.")
+}
+
+
 
 
 # ---- UI ----
